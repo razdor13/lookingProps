@@ -1,73 +1,43 @@
-import {Component} from 'react';
-import './App.css';
+import {useState} from "react";
 
+import "./App.css";
 
+const App = (props) => {
+    const [number, setNumber] = useState(0);
 
+    const getRandom = () => {
 
+        setNumber(Math.floor(Math.random() * (50 - (-50) + 1)) + (-50))
+    };
 
+    const getReset = () => {
+        setNumber(0)
+    };
 
-
-class App extends Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props)
-        this.state = {
-          number : 0
-          
+    const increment =() => {
+        if(number < 20) {
+            setNumber(number => number + 1)
         }
-      }
-    
-    decrement = () => {
-      
-      if (this.state.number === -20) {
-          return
+    }
+
+    const decrement =() => {
+        if(number > -20) {
+            setNumber(number => number - 1)
         }
-      this.setState(state => ({
-        number : state.number - 1
-      }))
-    }
-    
-    // Используйте только стрелочную форму методов
-    // Почему? Подробный ответ будет в следующем уроке
-    increment = () => {
-      console.log()
-      if (this.state.number === 20) {
-          return
-        }
-      this.setState(state => ({
-        number : state.number + 1
-      }))
-    }
-    
-    getRandom = () => {
-        this.setState(state => ({
-            number : Math.floor(Math.random() * (50 - (-50) + 1)) + (-50)
-          }))
-    }
-    
-
-    getReset = () => {
-        
-        this.setState(state => ({
-            number : this.props.counter
-          }))
     }
 
-
-    render() {
-      return (
+    return (
         <div className="app">
-          <div className="counter">{this.state.number}</div>
-          <div className="controls">
-            <button onClick={this.increment}>INC</button>
-            <button onClick={this.decrement}>DEC</button>
-            <button onClick={this.getRandom}>RND</button>
-            <button onClick={this.getReset}>RESET</button>
-          </div>
+            <div className="counter">{number}</div>
+            <div className="controls">
+                <button onClick={increment}>INC</button>
+                <button onClick={decrement}>DEC</button>
+                <button onClick={getRandom}>RND</button>
+                <button onClick={getReset}>RESET</button>
+            </div>
         </div>
-      )
-    }
-  }
+    );
+};
 
 export default App;
 
